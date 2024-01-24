@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3%;
+}
+
+.container2 {
+    text-align: center;
+    padding: 0 10% 0 10%;
+}
+
+.imgSize {
+    height: 200px;
+    width: 200px;
+}
+
+.defaultCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

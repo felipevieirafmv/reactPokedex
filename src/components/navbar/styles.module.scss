@@ -1,0 +1,23 @@
+// @import '~bootstrap/scss/bootstrap';
+// $me-auto: (
+//     display: flex,
+//     justify-content: space-around
+// );
+
+.teste {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.teste2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.links{
+    text-decoration: none;
+    color: gray;
+}
