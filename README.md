@@ -1,4 +1,4 @@
 # reactPokedex
 
-- [] Corrigir Effects dos moves.
-- [] Fazer modal dos stats.
+- [ ] Corrigir Effects dos moves.
+- [ ] Fazer modal dos stats.
