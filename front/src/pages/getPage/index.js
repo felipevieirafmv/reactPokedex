@@ -4,6 +4,25 @@ import Modal from 'react-bootstrap/Modal';
 import styles from './styles.module.scss'
 import Button from 'react-bootstrap/Button';
 import { useCallback, useEffect, useState } from 'react';
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import { Radar } from 'react-chartjs-2';
+  
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
 
 export default function GetPage(){
 
@@ -15,8 +34,7 @@ export default function GetPage(){
     const [locations, setLocations] = useState([]);
     const [movesModal, setMovesModal] = useState(false);
     const [moves, setMoves] = useState([]);
-    const [statsModal, setStatsModal] = useState(false);
-    const [stats, setStats] = useState([]);
+    const [stats, setStats] = useState({});
 
     function handleAbilitiesModal()
     {
@@ -24,7 +42,6 @@ export default function GetPage(){
         setAbilitiesModal(true);
         setLocationsModal(false);
         setMovesModal(false);
-        setStatsModal(false);
         handleAbilities();
     }
     function handleLocationsModal()
@@ -33,7 +50,6 @@ export default function GetPage(){
         setAbilitiesModal(false);
         setLocationsModal(true);
         setMovesModal(false);
-        setStatsModal(false);
         handleLocations()
     }
     function handleMovesModal()
@@ -42,22 +58,14 @@ export default function GetPage(){
         setAbilitiesModal(false);
         setLocationsModal(false);
         setMovesModal(true);
-        setStatsModal(false);
         handleMoves();
-    }
-    function handleStatsModal()
-    {
-        if(name === '') return
-        setAbilitiesModal(false);
-        setLocationsModal(false);
-        setMovesModal(false);
-        setStatsModal(true);
     }
 
     async function handleGet(e){
         e.preventDefault()
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
         setPokemon(res.data)
+        handleStats();
     }
 
     async function handleAbilities()
@@ -94,10 +102,60 @@ export default function GetPage(){
                 pp: res.data.pp,
                 accuracy: res.data.accuracy,
                 type: res.data.type.name,
-                // effect: res.data.effect_entries[0].effect
+                effect: res.data.effect_entries[0]?.effect
             }])
         })
     }
+
+    async function handleStats()
+    {
+        let lblValue = []
+        let dataValue = []
+        pokemon.stats?.map(item => {
+            lblValue.push(item.stat.name)
+            dataValue.push(item.base_stat)
+        })
+        setStats({
+            labels: lblValue,
+            datasets: [{
+                label: 'Stats',
+                data: dataValue,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            }],
+            options: {
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 300,
+                        beginAtZero: true,
+                        angleLines: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false,
+                            stepSize: 33.333
+                        }
+                    }
+                }
+            }
+        })
+
+        console.log(stats.labels)
+    }
+    const data = {
+        labels: ['Thing 1', 'Thing 2', 'Thing 3', 'Thing 4', 'Thing 5', 'Thing 6'],
+        datasets: [
+          {
+            label: '# of Votes',
+            data: [2, 9, 3, 5, 2, 3],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          },
+        ],
+      };
 
     const RenderTypes = () => {
         return pokemon.types?.map((item, index) => {
@@ -127,7 +185,7 @@ export default function GetPage(){
         return moves.map((item, index) => {
             return(
                 <>
-                    <h1>{item.name}</h1>
+                    <h1 key={index}>{item.name}</h1>
                     <p>Dano: {item.power}</p>
                     <p>PP: {item.pp}</p>
                     <p>Accuracy: {item.accuracy}</p>
@@ -213,9 +271,8 @@ export default function GetPage(){
                             <RenderMoves />
                         </Modal.Body>
                     </Modal>
-                <Button className="me-2 mb-2" onClick={() => handleStatsModal()}>
-                    Stats
-                </Button>
+                
+                {pokemon.name?<Radar data={stats} />:<></>}
             </div>
         </>
     )
