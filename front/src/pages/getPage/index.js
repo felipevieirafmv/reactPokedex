@@ -94,7 +94,7 @@ export default function GetPage(){
                 pp: res.data.pp,
                 accuracy: res.data.accuracy,
                 type: res.data.type.name,
-                // effect: res.data.effect_entries[0].effect
+                effect: res.data.effect_entries[0]?.effect
             }])
         })
     }
