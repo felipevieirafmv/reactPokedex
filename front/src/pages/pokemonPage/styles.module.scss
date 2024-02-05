@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 3%;
+    width: 100vw;
+}
+
+Form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3%;
+}
+
+p{
+    text-align: center;
+}
+
+.container2 {
+    text-align: center;
+    padding: 0 10% 0 10%;
+}
+
+.imgSize {
+    height: 200px;
+    width: 200px;
+}
+
+.defaultCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radarContainer {
+    height: 30vh;
+    width: 30vw;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 3%;
+}

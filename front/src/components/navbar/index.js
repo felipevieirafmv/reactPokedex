@@ -17,7 +17,7 @@ export default function NavBar()
                     navbarScroll
                     >
                         <Link to='/post' className={styles.links}>Post</Link>
-                        <Link to='/get' className={styles.links}>Get</Link>
+                        <Link to='/pokemon' className={styles.links}>Pokemon</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
