@@ -5,14 +5,23 @@
     width: 100%;
 }
 
-.teste2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+.AllNavBar{
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 29%, rgb(193, 32, 38) 30%);
+    padding: 0%;
 }
-
+.LogoImage{
+    height: 50px;
+    width: 150px;
+    background-color: white;
+    margin-left: 10px;
+    
+}
+.divLogo{
+    margin: 0%;
+    height: 100px;
+}
 .links{
     text-decoration: none;
-    color: gray;
+    color: rgb(255, 255, 255);
 }

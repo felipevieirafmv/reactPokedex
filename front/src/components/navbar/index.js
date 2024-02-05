@@ -3,26 +3,30 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styles from './styles.module.scss'
 import { Link, Outlet } from 'react-router-dom';
+import logo from './logo.png';
+import divLogo from './DivPokebola.png'
 
 export default function NavBar() {
     return (
         <>
-            <Navbar expand="lg" bg="primary" data-bs-theme="dark" className="bg-body-tertiary">
-                <Container fluid>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className={styles.teste}
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        >
+            <Navbar expand="lg" className={styles.AllNavBar}>
+                <Container style={{ padding: '0', margin:'0' }}>
+                    <Navbar.Brand><img src={logo} className={styles.LogoImage} />
+                    </Navbar.Brand>
+                    <div>
+                        <img src={divLogo} className={styles.divLogo} />
+                    </div>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className={styles.teste}>
+
                             <Link to='/home/post' className={styles.links}>Post</Link>
                             <Link to='/home' className={styles.links}>Get</Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <Outlet/>
+            <Outlet />
         </>
     )
 }
