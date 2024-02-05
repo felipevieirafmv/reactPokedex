@@ -1,21 +1,33 @@
 import './App.css';
 import NavBar from './components/navbar';
-import { Route, Router, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import PostPage from './pages/postPage';
 import GetPage from './pages/getPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { AlertProvider } from './context/alert';
+import ProtectedRoute from './pages/ProtectRoute';
+import AccessDenied from './pages/AcessDenied';
 
 function App() {
   return (
+
     <>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<LoginPage/>}/>
-        <Route path='/register' element={<RegisterPage/>}/>
-        <Route path='/post' element={<PostPage />} />
-        <Route path='/get' element={<GetPage />} />
-      </Routes>
+      <AlertProvider>
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/home' element={
+            <ProtectedRoute
+              errorPage={<AccessDenied />}
+              targetPage={<NavBar />}
+            />
+          }>
+            <Route path='' element={<GetPage />} />
+            <Route path='post' element={<PostPage />} />
+          </Route>
+        </Routes>
+      </AlertProvider>
     </>
   );
 }
