@@ -1,6 +1,6 @@
 # reactPokedex
 
-- [ ] Corrigir Effects.
+- [X] Corrigir Effects.
 - [ ] Fazer modal dos stats.
 - [ ] Adicionar mais informações do pokémon (nível de evolução e etc).
 - [ ] Criar a tela para mostrar todos os pokémon.
