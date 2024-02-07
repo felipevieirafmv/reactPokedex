@@ -12,7 +12,7 @@ function CardsHome() {
 
   const fetchPokemonData = async () => {
     try {
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0`);
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0`);
       if (!response.data.results) {
         throw new Error('Erro ao carregar JSON da API');
       }
