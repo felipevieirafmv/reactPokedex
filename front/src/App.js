@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import { AlertProvider } from './context/alert';
 import ProtectedRoute from './pages/ProtectRoute';
 import AccessDenied from './pages/AcessDenied';
+import HomePage from './pages/HomePage';
 import PokemonPage from './pages/pokemonPage';
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
               targetPage={<NavBar />}
             />
           }>
-            <Route path='' element={<PokemonPage />} />
+            <Route path='' element={<HomePage />} />
+            <Route path='get' element={<PokemonPage />} />
             <Route path='post' element={<PostPage />} />
           </Route>
         </Routes>
