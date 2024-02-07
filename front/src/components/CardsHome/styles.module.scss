@@ -1,0 +1,12 @@
+.Card {
+    width: 18rem !important;
+    margin: 20px !important;
+}
+.ContainerCards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.RowCard{
+    justify-content: space-between;
+}

@@ -11,17 +11,16 @@ export default function NavBar() {
         <>
             <Navbar expand="lg" className={styles.AllNavBar}>
                 <Container style={{ padding: '0', margin:'0' }}>
-                    <Navbar.Brand><img src={logo} className={styles.LogoImage} />
-                    </Navbar.Brand>
-                    <div>
-                        <img src={divLogo} className={styles.divLogo} />
-                    </div>
+                    <Link to='/home' className={styles.links}>
+                        <Navbar.Brand><img src={logo} className={styles.LogoImage} /></Navbar.Brand>
+                    </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className={styles.teste}>
 
                             <Link to='/home/post' className={styles.links}>Post</Link>
-                            <Link to='/home' className={styles.links}>Get</Link>
+                            <Link to='/home/get' className={styles.links}>Get</Link>
+                            
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
