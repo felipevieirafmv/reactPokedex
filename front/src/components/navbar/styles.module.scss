@@ -1,27 +1,44 @@
-
 .teste {
     display: flex;
     justify-content: space-around;
     width: 100%;
 }
 
-.AllNavBar{
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 29%, rgb(193, 32, 38) 30%);
+.AllNavBar {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 10%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 11%, rgba(156, 6, 6, 1) 11%);
     padding: 0%;
+
+    @media (max-width: 1000px) {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1) 47%, rgba(0, 0, 0, 1) 47%, rgba(0, 0, 0, 1) 50%, rgba(156, 6, 6, 1) 50%);
+    }
+
+    @media (max-width: 1600px) {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1) 25%, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 1) 28%, rgba(156, 6, 6, 1) 28%);
+    }
+
+    @media (max-width: 670px) {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1) 58%, rgba(0, 0, 0, 1) 58%, rgba(0, 0, 0, 1) 61%, rgba(156, 6, 6, 1) 61%);
+    }
 }
-.LogoImage{
+
+.LogoImage {
     height: 50px;
     width: 150px;
     background-color: white;
     margin-left: 10px;
-    
+
 }
-.divLogo{
+
+.divLogo {
     margin: 0%;
     height: 100px;
 }
-.links{
+
+.links {
     text-decoration: none;
     color: rgb(255, 255, 255);
 }

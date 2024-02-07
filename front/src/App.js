@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import { AlertProvider } from './context/alert';
 import ProtectedRoute from './pages/ProtectRoute';
 import AccessDenied from './pages/AcessDenied';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
               targetPage={<NavBar />}
             />
           }>
-            <Route path='' element={<GetPage />} />
+            <Route path='' element={<HomePage />} />
+            <Route path='get' element={<GetPage />} />
             <Route path='post' element={<PostPage />} />
           </Route>
         </Routes>
