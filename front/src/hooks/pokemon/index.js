@@ -9,13 +9,16 @@ const usePokemon = (name) => {
     const [pkmSpc, setPkmSpc] = useState({});
     const [evlChain, setEvlChain] = useState({});
     const [locations, setLocations] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     async function handleGet(e){
         e.preventDefault()
+        setIsLoading(true)
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
         setPokemon(res.data)
         const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
         setPkmSpc(res2.data)
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -48,13 +51,23 @@ const usePokemon = (name) => {
         setMoves([])
         pokemon.moves?.map(async item => {
             const res = await axios.get(item.move.url)
+
+            let learnMove = ''
+
+            if (item.version_group_details[0].move_learn_method.name == "level-up")
+                learnMove = "Level: " + item.version_group_details[0].level_learned_at
+            else
+                learnMove = item.version_group_details[0].move_learn_method.name[0].toUpperCase + item.version_group_details[0].move_learn_method.name.substring(1)
+
             setMoves(moves => [...moves, {
                 name: item.move.name[0].toUpperCase() + item.move.name.substring(1),
                 power: res.data.power,
                 pp: res.data.pp,
                 accuracy: res.data.accuracy,
                 type: res.data.type.name,
-                effect: res.data.effect_entries[0]?.effect
+                effect: res.data.effect_entries[0]?.effect,
+                dmgClass: res.data.damage_class.name,
+                learn: learnMove
             }])
         })
     }
@@ -79,7 +92,7 @@ const usePokemon = (name) => {
         })
     }
 
-    return { handleGet, abilities, locations, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, moves }
+    return { handleGet, abilities, locations, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, moves, isLoading }
 }
 
 export default usePokemon;

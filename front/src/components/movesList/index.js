@@ -13,6 +13,7 @@ export default function MovesList(props)
                     <p>PP: {item.pp}</p>
                     <p>Accuracy: {item.accuracy}</p>
                     <img src={require(`../../img/${item.type}.png`)} height={'30vh'}/>
+                    <img src={require(`../../img/${item.dmgClass}.png`)} height={'30vh'}/>
                     <p>Effect: {item.effect}</p>
                 </ListGroup.Item>
             )
@@ -20,9 +21,9 @@ export default function MovesList(props)
     }
 
     return(        
-        <Card style={{ width: '25vw', height: '50vh', overflow: 'auto' }}>
+        <Card style={{ width: '25vw', height: '50vh' }}>
             <Card.Header>Moves</Card.Header>
-            <ListGroup variant="flush">
+            <ListGroup variant="flush" style={{ overflow: 'auto' }}>
                 <RenderMoves />
             </ListGroup>
         </Card>

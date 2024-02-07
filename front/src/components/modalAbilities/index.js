@@ -11,7 +11,7 @@ export default function ModalAbilities(props)
     }
     return(
         <Modal
-            size="sm"
+            size="md"
             show={props.show}
             onHide={() => props.hideModal(false)}
             aria-labelledby="example-modal-sizes-title-sm"

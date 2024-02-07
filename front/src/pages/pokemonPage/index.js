@@ -20,6 +20,7 @@ import usePokemon from '../../hooks/pokemon';
 import ModalAbilities from '../../components/modalAbilities';
 import ModalLocations from '../../components/modalLocations';
 import MovesList from '../../components/movesList';
+import Spinner from 'react-bootstrap/Spinner';
   
 ChartJS.register(
     RadialLinearScale,
@@ -34,7 +35,7 @@ export default function PokemonPage()
 {
     const [name, setName] = useState('')
     const [abilitiesModal, setAbilitiesModal] = useState(false);
-    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves } = usePokemon(name);
+    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading } = usePokemon(name);
     const [locationsModal, setLocationsModal] = useState(false);
     const [movesModal, setMovesModal] = useState(false);
     const radarOptions = {
@@ -110,27 +111,18 @@ export default function PokemonPage()
         handleMoves();
     }, [pokemon])
 
-    return(
-        <Row className={ styles.container }>
-            <Col className={styles.radarContainer}>
-                {pokemon.name ? <Radar data={stats} options={radarOptions} /> : <Radar data={data} options={radarOptions} />}
-            </Col>
-            <Col className={ styles.container }>
-                <div>
-                    <Form onSubmit={handleGet}>
-                        <Form.Group className="mb-3" controlId="formGroupEmail">
-                            <Form.Control
-                                type="text"
-                                placeholder="Pokémon"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}    
-                                />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Enviar
-                        </Button>
-                    </Form>
-                    <img src={pokemon.sprites?.front_default} className={ styles.imgSize }/>
+    const RenderLoading = () => {
+        if(isLoading)
+            return(
+                <div style={{ textAlign: 'center', width: "100%", height: "100%", paddingTop: '10px' }}>
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                </div>
+            )
+        return(
+            <>
+                <img src={pokemon.sprites?.front_default} className={ styles.imgSize }/>
                     <p>#{pokemon.id} {pokemon.name}</p>
                     <div className={ styles.defaultCenter }>
                         <RenderTypes />
@@ -144,12 +136,42 @@ export default function PokemonPage()
                             Locations
                         </Button>
                             <ModalLocations locations={locations} show={locationsModal} hideModal={setLocationsModal} />
-                    </div>
                 </div>
-            </Col>
-            <Col className={ styles.container }>
-                <MovesList moves={moves} />
-            </Col>
-        </Row>
+            </>
+        )
+    }
+
+    return(
+        <>
+            <Row className={ styles.container }>
+                <Col className={styles.radarContainer}>
+                    {pokemon.name ? <Radar data={stats} options={radarOptions} /> : <Radar data={data} options={radarOptions} />}
+                </Col>
+                <Col className={ styles.container }>
+                    <div>
+                        <Form onSubmit={handleGet}>
+                            <Form.Group className="mb-3" controlId="formGroupEmail">
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Pokémon"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}    
+                                    />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Enviar
+                            </Button>
+                        </Form>
+                        <RenderLoading />
+                    </div>
+                </Col>
+                <Col className={ styles.container }>
+                    <MovesList moves={moves} />
+                </Col>
+            </Row>
+            <Row className={ styles.container }>
+                
+            </Row>
+        </>
     )
 }
