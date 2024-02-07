@@ -20,6 +20,7 @@ import usePokemon from '../../hooks/pokemon';
 import ModalAbilities from '../../components/modalAbilities';
 import ModalLocations from '../../components/modalLocations';
 import MovesList from '../../components/movesList';
+import Evolutions from '../../components/evolutions';
 import Spinner from 'react-bootstrap/Spinner';
   
 ChartJS.register(
@@ -35,7 +36,7 @@ export default function PokemonPage()
 {
     const [name, setName] = useState('')
     const [abilitiesModal, setAbilitiesModal] = useState(false);
-    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading } = usePokemon(name);
+    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading, handleEvlChain, evlChain } = usePokemon(name);
     const [locationsModal, setLocationsModal] = useState(false);
     const [movesModal, setMovesModal] = useState(false);
     const radarOptions = {
@@ -109,7 +110,12 @@ export default function PokemonPage()
     useEffect(() => {
         handleStats();
         handleMoves();
+        handleEvlChain();
     }, [pokemon])
+
+    useEffect(() => {
+        handleEvlChain();
+    }, [pkmSpc])
 
     const RenderLoading = () => {
         if(isLoading)
@@ -145,7 +151,7 @@ export default function PokemonPage()
         <>
             <Row className={ styles.container }>
                 <Col className={styles.radarContainer}>
-                    {pokemon.name ? <Radar data={stats} options={radarOptions} /> : <Radar data={data} options={radarOptions} />}
+                    {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
                 </Col>
                 <Col className={ styles.container }>
                     <div>
@@ -170,7 +176,7 @@ export default function PokemonPage()
                 </Col>
             </Row>
             <Row className={ styles.container }>
-                
+                <Evolutions evolutions={evlChain} />
             </Row>
         </>
     )
