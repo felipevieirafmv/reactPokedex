@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'
 import {
     Chart as ChartJS,
     RadialLinearScale,
@@ -34,9 +35,10 @@ ChartJS.register(
 
 export default function PokemonPage()
 {
-    const [name, setName] = useState('')
+    const {pkmName} = useParams();
+    const [name, setName] = useState(pkmName)
     const [abilitiesModal, setAbilitiesModal] = useState(false);
-    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading, handleEvlChain, evlChain } = usePokemon(name);
+    const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading, handleEvlChain, evlChain, firstTime } = usePokemon(name);
     const [locationsModal, setLocationsModal] = useState(false);
     const [movesModal, setMovesModal] = useState(false);
     const radarOptions = {
@@ -92,30 +94,22 @@ export default function PokemonPage()
         })
     }
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const res = await axios.get(pkmSpc.evolution_chain.url);
-    //             setEvlChain(res.data.chain);
-    //         } catch (error) {
-    //             console.error('Erro ao buscar cadeia de evolução:', error);
-    //         }
-    //     };
-    
-    //     if (pkmSpc) {
-    //         fetchData();
-    //     }
-    // }, [pkmSpc]);
-
     useEffect(() => {
-        handleStats();
-        handleMoves();
-        handleEvlChain();
+        if(!firstTime)
+        {
+            handleStats();
+            handleMoves();
+        }
     }, [pokemon])
 
     useEffect(() => {
-        handleEvlChain();
+        if(!firstTime)
+            handleEvlChain();
     }, [pkmSpc])
+
+    useEffect(() => {
+        handleGet();
+    }, [pkmName])
 
     const RenderLoading = () => {
         if(isLoading)
@@ -150,10 +144,10 @@ export default function PokemonPage()
     return(
         <>
             <Row className={ styles.container }>
-                <Col className={styles.radarContainer}>
+                <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
                     {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
                 </Col>
-                <Col className={ styles.container }>
+                <Col className={ styles.container } xs={12} sm={8} md={4}>
                     <div>
                         <Form onSubmit={handleGet}>
                             <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -171,7 +165,7 @@ export default function PokemonPage()
                         <RenderLoading />
                     </div>
                 </Col>
-                <Col className={ styles.container }>
+                <Col className={ styles.container } xs={12} sm={8} md={4}>
                     <MovesList moves={moves} />
                 </Col>
             </Row>

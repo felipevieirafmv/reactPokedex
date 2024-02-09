@@ -22,7 +22,7 @@ export default function MovesList(props)
     }
 
     return(        
-        <Card style={{ width: '25vw', height: '50vh' }}>
+        <Card style={{ height: '50vh' }}>
             <Card.Header>Moves</Card.Header>
             <ListGroup variant="flush" style={{ overflow: 'auto' }}>
                 <RenderMoves />

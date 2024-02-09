@@ -18,7 +18,7 @@ export default function NavBar() {
                         <Nav className={styles.teste}>
 
                             <Link to='/home/post' className={styles.links}>Post</Link>
-                            <Link to='/home/get' className={styles.links}>Get</Link>
+                            <Link to='/home/get/1' className={styles.links}>Get</Link>
                             
                         </Nav>
                     </Navbar.Collapse>
