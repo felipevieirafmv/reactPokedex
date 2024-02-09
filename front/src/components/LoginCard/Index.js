@@ -56,7 +56,7 @@ export default function CardLogin() {
     }
 
     return (
-        <div className={styles.appContainer}>
+        
             <Card className={styles.cardLoginStyles}>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
@@ -95,7 +95,7 @@ export default function CardLogin() {
                     </Form>
                 </Card.Body>
             </Card>
-        </div>
+      
 
     )
 }

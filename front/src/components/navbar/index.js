@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import styles from './styles.module.scss'
 import { Link, Outlet } from 'react-router-dom';
 import logo from './logo.png';
-import divLogo from './DivPokebola.png'
 
 export default function NavBar() {
     return (

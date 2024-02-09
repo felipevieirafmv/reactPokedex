@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import styles from './styles.module.scss';
 import Default from './defaultPokemon.png';
+import { Link } from 'react-router-dom';
 
 function CardsHome() {
   const [data, setData] = useState([]);
@@ -22,8 +23,9 @@ function CardsHome() {
           const res = await axios.get(pokemon.url);
           return {
             name: res.data.name,
-            imageUrl: res.data.sprites.front_default == null? defaultPokemon : res.data.sprites.front_default,
-            id : res.data.id
+            imageUrl: res.data.sprites.front_default == null ? defaultPokemon : res.data.sprites.front_default,
+            id: res.data.id,
+            elementType: res.data.types[0].type.name
           };
         })
       );
@@ -53,7 +55,7 @@ function CardsHome() {
 
 
   const renderPaginationItems = () => {
-    if (window.innerWidth < 576) { 
+    if (window.innerWidth < 576) {
       return (
         <>
           <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
@@ -74,21 +76,66 @@ function CardsHome() {
     }
   };
 
+  const getElementTypeClass = (elementType) => {
+    switch (elementType) {
+      case 'fire':
+        return styles.fire;
+      case 'water':
+        return styles.water;
+      case 'grass':
+        return styles.grass;
+      case 'bug':
+        return styles.bug;
+      case 'dark':
+        return styles.dark;
+      case 'dragon':
+        return styles.dragon;
+      case 'electric':
+        return styles.electric;
+      case 'fairy':
+        return styles.fairy;
+      case 'fighting':
+        return styles.fighting;
+      case 'ghost':
+        return styles.ghost;
+      case 'flying':
+        return styles.flying;
+      case 'ground':
+        return styles.ground;
+      case 'ice':
+        return styles.ice;
+        case 'normal':
+        return styles.normal;
+        case 'poison':
+        return styles.poison;
+        case 'psychic':
+        return styles.psychic;
+        case 'rock':
+        return styles.rock;
+        case 'steel':
+        return styles.steel;
+      default:
+        return '';
+    };
+  }
+
   return (
     <>
       <Container className={styles.ContainerCards}>
         <Row className={styles.RowCard}>
           {data.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage).map((pokemon, index) => (
             <Col key={index}>
-              <Card className={styles.Card}>
-                <Card.Img variant="top" src={pokemon.imageUrl} />
-                <Card.Body>
-                  <Card.Title>{pokemon.name}</Card.Title>
-                  <Card.Text>
-                    #{pokemon.id}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <Link to={`home/get/${pokemon.name}`} className={styles.LinkCard}>
+                <Card className={`${styles.Card} ${getElementTypeClass(pokemon.elementType)}`}>
+                  <Card.Img variant="top" src={pokemon.imageUrl} />
+                  <Card.Body>
+                    <Card.Title>{pokemon.name}</Card.Title>
+                    <Card.Text>
+                      #{pokemon.id}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
             </Col>
           ))}
         </Row>
