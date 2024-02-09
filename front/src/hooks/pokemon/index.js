@@ -11,9 +11,12 @@ const usePokemon = (name) => {
     const [evlChain, setEvlChain] = useState([]);
     const [locations, setLocations] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [firstTime, setFirstTime] = useState(true);
 
     async function handleGet(e){
-        e.preventDefault()
+        if(e)
+            e.preventDefault()
+        setFirstTime(false)
         setIsLoading(true)
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
         setPokemon(res.data)
@@ -93,48 +96,50 @@ const usePokemon = (name) => {
         })
     }
 
+    // async function 
+
     async function handleEvlChain()
     {
         setEvlChain([])
-        const fetchData = async () => {
+
+        let res;
+        if (pkmSpc) {
             try {
-                const res = await axios.get(pkmSpc.evolution_chain?.url)
+                res = await axios.get(pkmSpc.evolution_chain?.url)
                 setEvlRes(res.data.chain);
             } catch (error) {
                 console.error('Erro ao buscar cadeia de evolução:', error);
-            }
-        };
-    
-        if (pkmSpc) {
-            fetchData();
+            };
         }
 
         let evoData = []
 
-        const res1 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evlRes.species?.name}`)
+        let res1;
+        if(res)
+            res1 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.species?.name}`)
 
         evoData.push({
-            name: res1.data.name,
-            id: res1.data.id,
-            url: res1.data.sprites?.front_default
+            name: res1?.data.name,
+            id: res1?.data.id,
+            url: res1?.data.sprites?.front_default
         })
 
-        if(evlRes.evolves_to?.length > 0)
+        if(res.data.chain.evolves_to?.length > 0)
         {
-            const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evlRes.evolves_to[0].species?.name}`)
+            const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].species?.name}`)
 
             evoData.push({
-                name: evlRes.evolves_to[0].species?.name,
+                name: res.data.chain.evolves_to[0].species?.name,
                 id: res2.data.id,
                 url: res2.data.sprites?.front_default
             })
 
-            if(evlRes.evolves_to[0].evolves_to?.length > 0)
+            if(res.data.chain.evolves_to[0].evolves_to?.length > 0)
             {
-                const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evlRes.evolves_to[0].evolves_to[0].species?.name}`)
+                const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].evolves_to[0].species?.name}`)
 
                 evoData.push({
-                    name: evlRes.evolves_to[0].evolves_to[0].species?.name,
+                    name: res.data.chain.evolves_to[0].evolves_to[0].species?.name,
                     id: res3.data.id,
                     url: res3.data.sprites?.front_default
                 })
@@ -144,7 +149,7 @@ const usePokemon = (name) => {
         setEvlChain(evoData)
     }
 
-    return { handleGet, abilities, locations, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, moves, isLoading, handleEvlChain, evlChain }
+    return { handleGet, abilities, locations, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, moves, isLoading, handleEvlChain, evlChain, firstTime }
 }
 
 export default usePokemon;

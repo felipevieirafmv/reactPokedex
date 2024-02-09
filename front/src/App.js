@@ -25,7 +25,7 @@ function App() {
             />
           }>
             <Route path='' element={<HomePage />} />
-            <Route path='get' element={<PokemonPage />} />
+            <Route path='get/:pkmName' element={<PokemonPage />} />
             <Route path='post' element={<PostPage />} />
           </Route>
         </Routes>

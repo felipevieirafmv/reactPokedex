@@ -20,7 +20,6 @@ function CardsHome() {
       const pokemonData = await Promise.all(
         pokemonList.map(async (pokemon) => {
           const res = await axios.get(pokemon.url);
-          console.log(res)
           return {
             name: res.data.name,
             imageUrl: res.data.sprites.front_default == null? defaultPokemon : res.data.sprites.front_default,
