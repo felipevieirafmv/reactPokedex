@@ -142,7 +142,7 @@ export default function PokemonPage()
     }
 
     return(
-        <>
+        <div style={{ height:'93vh' }}>
             <Row className={ styles.container }>
                 <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
                     {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
@@ -172,6 +172,6 @@ export default function PokemonPage()
             <Row className={ styles.container }>
                 <Evolutions evolutions={evlChain} />
             </Row>
-        </>
+        </div>
     )
 }

@@ -28,6 +28,11 @@ const User = mongoose.model('User',
         removedAt: {
             type: Date,
             required: false
+        },
+        adm: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     })
 )
