@@ -146,40 +146,37 @@ export default function PokemonPage() {
         )
     }
 
-    return (
-        <>
-            <div className={styles.themes} style={containerStyle}>
-
-                <Row className={styles.container}>
-                    <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
-                        {pokemon.name ? <Radar data={stats} options={radarOptions} style={{ width: "30vw" }} /> : <Radar data={data} options={radarOptions} style={{ width: "30vw" }} />}
-                    </Col>
-                    <Col className={styles.container} xs={12} sm={8} md={4}>
-                        <div>
-                            <Form onSubmit={handleGet}>
-                                <Form.Group className="mb-3" controlId="formGroupEmail">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Pokémon"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
+    return(
+        <div style={{ height:'93vh' }}>
+            <Row className={ styles.container }>
+                <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
+                    {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
+                </Col>
+                <Col className={ styles.container } xs={12} sm={8} md={4}>
+                    <div>
+                        <Form onSubmit={handleGet}>
+                            <Form.Group className="mb-3" controlId="formGroupEmail">
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Pokémon"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}    
                                     />
-                                </Form.Group>
-                                <Button variant="primary" type="submit">
-                                    Enviar
-                                </Button>
-                            </Form>
-                            <RenderLoading />
-                        </div>
-                    </Col>
-                    <Col className={styles.container} xs={12} sm={8} md={4}>
-                        <MovesList moves={moves} />
-                    </Col>
-                </Row>
-                <Row className={styles.container}>
-                    <Evolutions evolutions={evlChain} />
-                </Row>
-            </div>
-        </>
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Enviar
+                            </Button>
+                        </Form>
+                        <RenderLoading />
+                    </div>
+                </Col>
+                <Col className={ styles.container }  style={{ paddingTop: '1vh' }} xs={12} sm={8} md={4}>
+                    <MovesList moves={moves} />
+                </Col>
+            </Row>
+            <Row className={ styles.container }>
+                <Evolutions evolutions={evlChain} />
+            </Row>
+        </div>
     )
 }

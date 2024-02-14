@@ -54,7 +54,6 @@ class UserController {
 
         const { name, email, password, confirmPassword } = json;
 
-
         if (!name)
             return res.status(400).json({ message: "O nome é obrigatório." });
 

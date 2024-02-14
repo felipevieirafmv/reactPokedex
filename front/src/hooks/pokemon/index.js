@@ -128,6 +128,33 @@ const usePokemon = (name) => {
         {
             const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].species?.name}`)
 
+            let evlDtl1 = []
+
+            evlDtl1.push({trigger: res.data.chain.evolves_to[0].evolution_details[0].trigger.name})
+            Object.keys(res.data.chain.evolves_to[0].evolution_details[0]).map(item => {
+                if((res.data.chain.evolves_to[0].evolution_details[0][item] !== null) && 
+                    item !== 'trigger' &&
+                    (res.data.chain.evolves_to[0].evolution_details[0][item] !== '') &&
+                    (res.data.chain.evolves_to[0].evolution_details[0][item])
+                )
+                {
+                    if(res.data.chain.evolves_to[0].evolution_details[0][item] === true)
+                        evlDtl1.push({[item]: [item]})
+                    else if(typeof res.data.chain.evolves_to[0].evolution_details[0][item] === 'object')
+                    {
+                        // console.log(item)
+                        // evlDtl1.push({[item]: [item]})
+                        evlDtl1.push({[item]: res.data.chain.evolves_to[0].evolution_details[0][item].name})
+                    }
+                    else
+                        evlDtl1.push({[item]: res.data.chain.evolves_to[0].evolution_details[0][item]})
+                }
+            })
+
+            evoData.push({
+                details: evlDtl1
+            })
+
             evoData.push({
                 name: res.data.chain.evolves_to[0].species?.name,
                 id: res2.data.id,
@@ -137,6 +164,28 @@ const usePokemon = (name) => {
             if(res.data.chain.evolves_to[0].evolves_to?.length > 0)
             {
                 const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].evolves_to[0].species?.name}`)
+
+                let evlDtl2 = []
+
+                evlDtl2.push({trigger: res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0].trigger.name})
+                Object.keys(res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0]).map(item => {
+                    if((res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item] !== null) && 
+                        item !== 'trigger' &&
+                        (res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item] !== '') &&
+                        (res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item])
+                    )
+                        if(typeof res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item] === 'object')
+                        {
+                            // evlDtl2.push({[item]: [item]})
+                            evlDtl2.push({[item]: res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item].name})
+                        }
+                        else
+                            evlDtl2.push({[item]: res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item]})
+                })
+
+                evoData.push({
+                    details: evlDtl2
+                })
 
                 evoData.push({
                     name: res.data.chain.evolves_to[0].evolves_to[0].species?.name,
