@@ -72,6 +72,7 @@ export default function PokemonPage() {
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
+            color : 'white'
         }]
     }
 
@@ -147,7 +148,7 @@ export default function PokemonPage() {
     }
 
     return(
-        <div style={{ height:'93vh' }}>
+        <div style={ containerStyle } className={styles.themes}>
             <Row className={ styles.container }>
                 <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
                     {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}

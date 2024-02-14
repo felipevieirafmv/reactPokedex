@@ -34,8 +34,7 @@ export default function NavBar() {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className={styles.teste}>
 
-                                <Link to='/home/post' className={styles.links}>Post</Link>
-                                <Link to='/home/get/1' className={styles.links}>Get</Link>
+                                <Link to='/home/adm' className={styles.links}>Adm</Link>
                                 <Button variant="outline" onClick={handleTheme}>
                                     {dark ? <img src={lightIcon} alt="Light Mode" /> : <img src={darkIcon} alt="Dark Mode" />}
                                 </Button>

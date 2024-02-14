@@ -1,7 +1,7 @@
 import './App.css';
 import NavBar from './components/navbar';
 import { Route, Routes } from 'react-router-dom';
-import PostPage from './pages/postPage';
+import AdmPage from './pages/AdmPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { AlertProvider } from './context/alert';
@@ -32,7 +32,7 @@ function App() {
             }>
               <Route path='' element={<HomePage />} />
               <Route path='get/:pkmName' element={<PokemonPage />} />
-              <Route path='post' element={<PostPage />} />
+              <Route path='adm' element={<AdmPage />} />
             </Route>
           </Routes>
 
