@@ -1,11 +1,3 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-}
-
-.texto{
-    font-size: large;
+.container{
+    background-color: var(--background-color) !important;
 }
