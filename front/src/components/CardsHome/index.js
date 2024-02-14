@@ -34,9 +34,7 @@ function CardsHome() {
       );
 
       setData(pokemonData);
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) { }
   };
 
   useEffect(() => {

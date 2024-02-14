@@ -28,16 +28,19 @@ class UserController {
         if (decryptd2 != password)
             return res.status(422).send({ message: "Email ou senha não conferem." });
 
+        console.log(user.adm)
+
         try {
             const secret = process.env.SECRET;
             const token = jwt.sign(
                 {
-                    id: user._id
+                    id: user._id,
+                    adm: user.adm
                 },
                 secret,
                 {
                     expiresIn: '2 days'
-                }
+                },
             );
 
             return res.status(200).send({ token: token })

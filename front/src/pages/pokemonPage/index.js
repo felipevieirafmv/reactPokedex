@@ -61,6 +61,7 @@ export default function PokemonPage() {
                 display: true,
                 position: 'top',
             },
+            backgroundColor: 'white'
         },
     };
 
@@ -72,7 +73,7 @@ export default function PokemonPage() {
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
-            color : 'white'
+            color : '#ff0000'
         }]
     }
 

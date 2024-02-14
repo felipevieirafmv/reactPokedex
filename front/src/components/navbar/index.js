@@ -9,10 +9,15 @@ import { useContext } from "react";
 import Button from 'react-bootstrap/Button';
 import lightIcon from './sun.svg';
 import darkIcon from './moon.svg';
+import * as jwt_decode from 'jwt-decode';
 
 export default function NavBar() {
 
     const { dark, handleTheme } = useContext(ThemesContext);
+
+    const token = sessionStorage.getItem('token');
+    const decodeToken = jwt_decode.jwtDecode(token)
+    console.log(decodeToken)
 
     const containerStyle = {
       '--background-color': dark ? '#333' : '#fff',
@@ -34,7 +39,8 @@ export default function NavBar() {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className={styles.teste}>
 
-                                <Link to='/home/adm' className={styles.links}>Adm</Link>
+                                {decodeToken.adm ? <Link to='/home/adm' className={styles.links}>Adm</Link> : <></>}
+                                <Link to='/home/get/1' className={styles.links}>Search</Link>
                                 <Button variant="outline" onClick={handleTheme}>
                                     {dark ? <img src={lightIcon} alt="Light Mode" /> : <img src={darkIcon} alt="Dark Mode" />}
                                 </Button>
