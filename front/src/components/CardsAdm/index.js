@@ -12,6 +12,19 @@ export default function CardsAdm() {
         GetAllUsers();
     }, []);
 
+    async function handleDelete(userId) {
+        try {
+            const response = await axios.delete(`http://localhost:8080/api/user/remove/${userId}`);
+            if (response.status === 200) {
+                console.log('User deleted successfully');
+            } else {
+                console.log('Failed to delete user');
+            }
+        } catch (error) {
+            console.log('Error deleting user:', error);
+        }
+    }
+
     const GetAllUsers = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/user/getAll`);
@@ -53,7 +66,7 @@ export default function CardsAdm() {
                                         </p>
 
                                     </Card.Text>
-                                    <Button variant="danger">Excluir</Button>
+                                    <Button variant="danger" onClick={() => handleDelete(user._id)}>Excluir</Button>
                                 </Card.Body>
                             </Card>
                         </Col>
