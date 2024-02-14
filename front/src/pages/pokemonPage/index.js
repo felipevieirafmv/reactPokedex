@@ -15,7 +15,7 @@ import {
     Filler,
     Tooltip,
     Legend,
-  } from 'chart.js';
+} from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 import usePokemon from '../../hooks/pokemon';
 import ModalAbilities from '../../components/modalAbilities';
@@ -23,7 +23,9 @@ import ModalLocations from '../../components/modalLocations';
 import MovesList from '../../components/movesList';
 import Evolutions from '../../components/evolutions';
 import Spinner from 'react-bootstrap/Spinner';
-  
+import React, { useContext } from 'react';
+import { ThemesContext } from "../../context/themes";
+
 ChartJS.register(
     RadialLinearScale,
     PointElement,
@@ -33,9 +35,13 @@ ChartJS.register(
     Legend
 );
 
-export default function PokemonPage()
-{
-    const {pkmName} = useParams();
+export default function PokemonPage() {
+    const { dark } = useContext(ThemesContext);
+    const containerStyle = {
+        '--background-color': dark ? '#333' : '#fff',
+        '--font-color': dark ? '#fff': '#333'
+    };
+    const { pkmName } = useParams();
     const [name, setName] = useState(pkmName)
     const [abilitiesModal, setAbilitiesModal] = useState(false);
     const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading, handleEvlChain, evlChain, firstTime } = usePokemon(name);
@@ -69,17 +75,15 @@ export default function PokemonPage()
         }]
     }
 
-    function handleAbilitiesModal()
-    {
-        if(name === '') return
+    function handleAbilitiesModal() {
+        if (name === '') return
         setAbilitiesModal(true);
         setLocationsModal(false);
         setMovesModal(false);
         handleLocations()
     }
-    function handleLocationsModal()
-    {
-        if(name === '') return
+    function handleLocationsModal() {
+        if (name === '') return
         setAbilitiesModal(false);
         setLocationsModal(true);
         setMovesModal(false);
@@ -88,22 +92,21 @@ export default function PokemonPage()
 
     const RenderTypes = () => {
         return pokemon.types?.map((item, index) => {
-            return(
-                <img src={require(`../../img/${item.type.name}.png`)} key={index}/>
+            return (
+                <img src={require(`../../img/${item.type.name}.png`)} key={index} />
             )
         })
     }
 
     useEffect(() => {
-        if(!firstTime)
-        {
+        if (!firstTime) {
             handleStats();
             handleMoves();
         }
     }, [pokemon])
 
     useEffect(() => {
-        if(!firstTime)
+        if (!firstTime)
             handleEvlChain();
     }, [pkmSpc])
 
@@ -112,66 +115,71 @@ export default function PokemonPage()
     }, [pkmName])
 
     const RenderLoading = () => {
-        if(isLoading)
-            return(
+        if (isLoading)
+            return (
                 <div style={{ textAlign: 'center', width: "100%", height: "100%", paddingTop: '10px' }}>
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
                 </div>
             )
-        return(
+        return (
             <>
-                <img src={pokemon.sprites?.front_default} className={ styles.imgSize }/>
-                    <p>#{pokemon.id} {pokemon.name}</p>
-                    <div className={ styles.defaultCenter }>
-                        <RenderTypes />
-                    </div>
-                    <div className={ styles.buttonContainer }>
-                        <Button onClick={() => handleAbilitiesModal()}>
-                            Abilities
-                        </Button>
-                            <ModalAbilities abilities={abilities} show={abilitiesModal} hideModal={setAbilitiesModal} />
-                        <Button onClick={() => handleLocationsModal()}>
-                            Locations
-                        </Button>
-                            <ModalLocations locations={locations} show={locationsModal} hideModal={setLocationsModal} />
+
+                <img src={pokemon.sprites?.front_default} className={styles.imgSize} />
+                <p>#{pokemon.id} {pokemon.name}</p>
+                <div className={styles.defaultCenter}>
+                    <RenderTypes />
                 </div>
+                <div className={styles.buttonContainer}>
+                    <Button onClick={() => handleAbilitiesModal()}>
+                        Abilities
+                    </Button>
+                    <ModalAbilities abilities={abilities} show={abilitiesModal} hideModal={setAbilitiesModal} />
+                    <Button onClick={() => handleLocationsModal()}>
+                        Locations
+                    </Button>
+                    <ModalLocations locations={locations} show={locationsModal} hideModal={setLocationsModal} />
+                </div>
+
             </>
         )
     }
 
-    return(
+    return (
         <>
-            <Row className={ styles.container }>
-                <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
-                    {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
-                </Col>
-                <Col className={ styles.container } xs={12} sm={8} md={4}>
-                    <div>
-                        <Form onSubmit={handleGet}>
-                            <Form.Group className="mb-3" controlId="formGroupEmail">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Pokémon"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}    
+            <div className={styles.themes} style={containerStyle}>
+
+                <Row className={styles.container}>
+                    <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
+                        {pokemon.name ? <Radar data={stats} options={radarOptions} style={{ width: "30vw" }} /> : <Radar data={data} options={radarOptions} style={{ width: "30vw" }} />}
+                    </Col>
+                    <Col className={styles.container} xs={12} sm={8} md={4}>
+                        <div>
+                            <Form onSubmit={handleGet}>
+                                <Form.Group className="mb-3" controlId="formGroupEmail">
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Pokémon"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
                                     />
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Enviar
-                            </Button>
-                        </Form>
-                        <RenderLoading />
-                    </div>
-                </Col>
-                <Col className={ styles.container } xs={12} sm={8} md={4}>
-                    <MovesList moves={moves} />
-                </Col>
-            </Row>
-            <Row className={ styles.container }>
-                <Evolutions evolutions={evlChain} />
-            </Row>
+                                </Form.Group>
+                                <Button variant="primary" type="submit">
+                                    Enviar
+                                </Button>
+                            </Form>
+                            <RenderLoading />
+                        </div>
+                    </Col>
+                    <Col className={styles.container} xs={12} sm={8} md={4}>
+                        <MovesList moves={moves} />
+                    </Col>
+                </Row>
+                <Row className={styles.container}>
+                    <Evolutions evolutions={evlChain} />
+                </Row>
+            </div>
         </>
     )
 }

@@ -1,10 +1,18 @@
 .teste {
     display: flex;
     justify-content: space-around;
+    min-width: 100%;
+    align-items: flex-end
+}
+
+.PagesNav{
+    display: flex;
     width: 100%;
 }
 
 .AllNavBar {
+    display: flex;
+    min-width: 100%;
     background: rgb(255, 255, 255);
     background: linear-gradient(90deg, rgba(255, 255, 255, 1) 10%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 11%, rgba(156, 6, 6, 1) 11%);
     padding: 0%;

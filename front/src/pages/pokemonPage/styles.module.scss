@@ -1,3 +1,10 @@
+html{
+    min-height: 100%;
+}
+.themes{
+    background-color: var(--background-color) !important;
+    color:  var(--font-color) !important;
+}
 .container {
     display: flex;
     justify-content: space-around;
