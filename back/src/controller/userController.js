@@ -8,7 +8,7 @@ class UserController {
 
     static async login(req, res) {
 
-        var bytes = CryptoJS.AES.decrypt( req.body.jsonCrypt, process.env.SECRET);
+        var bytes = CryptoJS.AES.decrypt(req.body.jsonCrypt, process.env.SECRET);
         const decryptd = bytes.toString(CryptoJS.enc.Utf8);
         const json = JSON.parse(decryptd);
 
@@ -93,10 +93,9 @@ class UserController {
         }
     }
 
-    static async remove(req, res)
-    {
+    static async remove(req, res) {
         const { id } = req.params;
-        if(!id)
+        if (!id)
             return res.status(400).send({ message: "No id provider" });
 
         try {
@@ -104,9 +103,25 @@ class UserController {
             return res.status(200).send({ message: "User deleted successfully" })
         } catch (error) {
             console.log(error);
-            return res.status(500).send({ message: "Something failled"})
+            return res.status(500).send({ message: "Something failled" })
         }
     }
+
+    static async GetAll(req, res) {
+        try {
+            const users = await User.find();
+
+            if (!users || users.length === 0) {
+                return res.status(404).send({ message: "Nenhum usuário encontrado" });
+            }
+
+            return res.status(200).send({ users });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ message: "Algo deu errado ao buscar os usuários" });
+        }
+    }
+
 }
 
 module.exports = UserController;
