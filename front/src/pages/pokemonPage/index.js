@@ -85,7 +85,7 @@ export default function PokemonPage()
         setMovesModal(false);
         handleLocations()
     }
-
+    
     const RenderTypes = () => {
         return pokemon.types?.map((item, index) => {
             return(

@@ -89,6 +89,21 @@ class UserController {
             return res.status(500).send({ message: "Error : ", data: error.message })
         }
     }
+
+    static async remove(req, res)
+    {
+        const { id } = req.params;
+        if(!id)
+            return res.status(400).send({ message: "No id provider" });
+
+        try {
+            await User.findByIdAndDelete(id);
+            return res.status(200).send({ message: "User deleted successfully" })
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ message: "Something failled"})
+        }
+    }
 }
 
 module.exports = UserController;
