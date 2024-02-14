@@ -18,10 +18,13 @@ const usePokemon = (name) => {
             e.preventDefault()
         setFirstTime(false)
         setIsLoading(true)
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-        setPokemon(res.data)
-        const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
-        setPkmSpc(res2.data)
+        try {
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+            setPokemon(res.data)
+            const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`)
+            setPkmSpc(res2.data)
+        }
+        catch(error){ }
         setIsLoading(false)
     }
 
