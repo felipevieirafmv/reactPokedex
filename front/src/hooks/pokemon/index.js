@@ -128,20 +128,48 @@ const usePokemon = (name) => {
         {
             const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].species?.name}`)
 
+            let evlDtl1 = []
+
+            Object.keys(res.data.chain.evolves_to[0].evolution_details[0]).map(item => {
+                if((res.data.chain.evolves_to[0].evolution_details[0][item] !== null) && 
+                    item !== 'trigger' &&
+                    (res.data.chain.evolves_to[0].evolution_details[0][item] !== '') &&
+                    (res.data.chain.evolves_to[0].evolution_details[0][item])
+                )
+                    evlDtl1.push({[item]: res.data.chain.evolves_to[0].evolution_details[0][item]})
+            })
+
+            evlDtl1.push({trigger: res.data.chain.evolves_to[0].evolution_details[0].trigger.name})
+
             evoData.push({
                 name: res.data.chain.evolves_to[0].species?.name,
                 id: res2.data.id,
-                url: res2.data.sprites?.front_default
+                url: res2.data.sprites?.front_default,
+                details: evlDtl1
             })
 
             if(res.data.chain.evolves_to[0].evolves_to?.length > 0)
             {
                 const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].evolves_to[0].species?.name}`)
 
+                let evlDtl2 = []
+
+                Object.keys(res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0]).map(item => {
+                    if((res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item] !== null) && 
+                        item !== 'trigger' &&
+                        (res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item] !== '') &&
+                        (res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item])
+                    )
+                        evlDtl2.push({[item]: res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0][item]})
+                })
+
+                evlDtl2.push({trigger: res.data.chain.evolves_to[0].evolves_to[0].evolution_details[0].trigger.name})
+
                 evoData.push({
                     name: res.data.chain.evolves_to[0].evolves_to[0].species?.name,
                     id: res3.data.id,
-                    url: res3.data.sprites?.front_default
+                    url: res3.data.sprites?.front_default,
+                    details: evlDtl2
                 })
             }
         }

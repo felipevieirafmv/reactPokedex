@@ -125,7 +125,7 @@ function CardsHome() {
         <Row className={styles.RowCard}>
           {data.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage).map((pokemon, index) => (
             <Col key={index}>
-              <Link to={`home/get/${pokemon.name}`} className={styles.LinkCard}>
+              <Link to={`get/${pokemon.name}`} className={styles.LinkCard}>
                 <Card className={`${styles.Card} ${getElementTypeClass(pokemon.elementType)}`}>
                   <Card.Img variant="top" src={pokemon.imageUrl} />
                   <Card.Body>

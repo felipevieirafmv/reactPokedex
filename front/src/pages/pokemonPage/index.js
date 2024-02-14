@@ -165,7 +165,7 @@ export default function PokemonPage()
                         <RenderLoading />
                     </div>
                 </Col>
-                <Col className={ styles.container } xs={12} sm={8} md={4}>
+                <Col className={ styles.container }  style={{ paddingTop: '1vh' }} xs={12} sm={8} md={4}>
                     <MovesList moves={moves} />
                 </Col>
             </Row>
