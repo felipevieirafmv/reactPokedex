@@ -1,5 +1,19 @@
+.DivSelectGen{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.SelectGen{
+    margin: 20px;
+    display: flex;
+    max-width: 18rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .Card {
-    width: 18rem !important;
+    width: 23rem !important;
     margin: 20px !important;
     background-position: center;
     background-repeat: no-repeat;

@@ -4,12 +4,15 @@ import { Container, Row, Col, Card, Pagination } from 'react-bootstrap';
 import styles from './styles.module.scss';
 import Default from './defaultPokemon.png';
 import { Link } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
 
 function CardsHome() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(21);
   const [defaultPokemon] = useState(Default);
+
+  const [filterElement, setElement] = useState('');
 
   const fetchPokemonData = async () => {
     try {
@@ -104,40 +107,76 @@ function CardsHome() {
         return styles.ground;
       case 'ice':
         return styles.ice;
-        case 'normal':
+      case 'normal':
         return styles.normal;
-        case 'poison':
+      case 'poison':
         return styles.poison;
-        case 'psychic':
+      case 'psychic':
         return styles.psychic;
-        case 'rock':
+      case 'rock':
         return styles.rock;
-        case 'steel':
+      case 'steel':
         return styles.steel;
       default:
         return '';
     };
   }
 
+  const handleElementChange = (event) => {
+    setElement(event.target.value);
+    renderPaginationItems();
+  };
+
   return (
     <>
+      <div className={styles.DivSelectGen}>
+        <Form.Select aria-label="Default select example" className={styles.SelectGen}
+          value={filterElement}
+          onChange={handleElementChange}>
+          <option value=''>Elements</option>
+          <option value="fire">fire</option>
+          <option value="water">water</option>
+          <option value="grass">grass</option>
+          <option value="bug">bug</option>
+          <option value="dark">dark</option>
+          <option value="dragon">dragon</option>
+          <option value="electric">electric</option>
+          <option value="fairy">fairy</option>
+          <option value="fighting">fighting</option>
+          <option value="ghost">ghost</option>
+          <option value="flying">flying</option>
+          <option value="ground">ground</option>
+          <option value="ice">ice</option>
+          <option value="normal">normal</option>
+          <option value="poison">poison</option>
+          <option value="psychic">psychic</option>
+          <option value="rock">rock</option>
+          <option value="steel">steel</option>
+        </Form.Select>
+      </div>
+
       <Container className={styles.ContainerCards}>
         <Row className={styles.RowCard}>
-          {data.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage).map((pokemon, index) => (
-            <Col key={index}>
-              <Link to={`home/get/${pokemon.name}`} className={styles.LinkCard}>
-                <Card className={`${styles.Card} ${getElementTypeClass(pokemon.elementType)}`}>
-                  <Card.Img variant="top" src={pokemon.imageUrl} />
-                  <Card.Body>
-                    <Card.Title>{pokemon.name}</Card.Title>
-                    <Card.Text>
-                      #{pokemon.id}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-          ))}
+          {data
+            .filter(pokemon => filterElement === '' || pokemon.elementType === filterElement)
+            .slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage)
+            .map((pokemon, index) => (
+
+              <Col key={index}>
+                <Link to={`get/${pokemon.name}`} className={styles.LinkCard}>
+                  <Card className={`${styles.Card} ${getElementTypeClass(pokemon.elementType)}`}>
+                    <Card.Img variant="top" src={pokemon.imageUrl} />
+                    <Card.Body>
+                      <Card.Title>{pokemon.name}</Card.Title>
+                      <Card.Text>
+                        #{pokemon.id}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+
+            ))}
         </Row>
         <Pagination>
           {renderPaginationItems()}
