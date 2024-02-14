@@ -3,20 +3,25 @@ import Row from 'react-bootstrap/Row';
 
 export default function Evolutions(props)
 {
+    // console.log(props.evolutions)
     return props.evolutions.map((item, index) => {
-        return(
-            <Col key={index} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <Row style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                    {item.details ? 
-                        <Col>
-                            <p>teste</p>
-                        </Col> : <></>
+        if(Object.keys(item) == "details")
+        {
+            return (
+                <Col xs={12} sm={8} md={1} key={index}>
+                    {
+                        item.details.map((item2, index2) => {
+                            let thisKey = Object.keys(item2)[0]
+                            return <p key={index2}>{item2[thisKey]}</p>;
+                        })
                     }
-                    <Col>
-                        <img src={item.url} style={{height: "200px", width: "200px"}}/>
-                        <p>#{item.id} {item.name}</p>
-                    </Col>
-                </Row>
+                </Col>
+              );
+        }
+        return(
+            <Col key={index} style={{display: "flex", flexDirection: "column", alignItems: "center"}} xs={12} sm={8} md={3}>
+                <img src={item.url} style={{height: "200px", width: "200px"}}/>
+                <p>#{item.id} {item.name}</p>
             </Col>
         )
     })
