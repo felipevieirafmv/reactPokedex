@@ -13,8 +13,8 @@ export default function MovesList(props)
                     <p>PP: {item.pp}</p>
                     <p>Accuracy: {item.accuracy}</p>
                     <p>Learn: {item.learn}</p>
-                    <img src={require(`../../img/${item.type}.png`)} height={'30vh'}/>
-                    <img src={require(`../../img/${item.dmgClass}.png`)} height={'30vh'}/>
+                    <img src={require(`../../img/${item.type}.png`)} height={'30vh'} style={{imageRendering:'pixelated'}}/>
+                    <img src={require(`../../img/${item.dmgClass}.png`)} height={'30vh'} style={{imageRendering:'pixelated'}}/>
                     <p>Effect: {item.effect}</p>
                 </ListGroup.Item>
             )
