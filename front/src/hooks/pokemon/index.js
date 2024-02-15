@@ -119,7 +119,13 @@ const usePokemon = (name) => {
 
         let res1;
         if(res)
-            res1 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.species?.name}`)
+        {
+            let auxRes = await axios.get(res.data.chain.species?.url)
+            console.log(auxRes.data)
+            res1 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${auxRes.data.id}`)
+        }
+
+        // console.log(res1.data)
 
         evoData.push({
             name: res1?.data.name,
@@ -129,7 +135,8 @@ const usePokemon = (name) => {
 
         if(res.data.chain.evolves_to?.length > 0)
         {
-            const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].species?.name}`)
+            let auxRes2 = await axios.get(res.data.chain.evolves_to[0].species?.url)
+            const res2 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${auxRes2.data.id}`)
 
             let evlDtl1 = []
 
@@ -166,7 +173,9 @@ const usePokemon = (name) => {
 
             if(res.data.chain.evolves_to[0].evolves_to?.length > 0)
             {
-                const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${res.data.chain.evolves_to[0].evolves_to[0].species?.name}`)
+                
+                let auxRes3 = await axios.get(res.data.chain.evolves_to[0].evolves_to[0].species?.url)
+                const res3 = await axios.get(`https://pokeapi.co/api/v2/pokemon/${auxRes3.data.id}`)
 
                 let evlDtl2 = []
 

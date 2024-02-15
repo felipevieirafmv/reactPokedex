@@ -20,7 +20,7 @@ export default function Evolutions(props)
         }
         return(
             <Col key={index} style={{display: "flex", flexDirection: "column", alignItems: "center"}} xs={12} sm={8} md={3}>
-                <img src={item.url} style={{height: "200px", width: "200px"}}/>
+                <img src={item.url} style={{height: "200px", width: "200px", imageRendering:'pixelated'}}/>
                 <p>#{item.id} {item.name}</p>
             </Col>
         )

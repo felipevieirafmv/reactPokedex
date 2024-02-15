@@ -163,7 +163,7 @@ function CardsHome() {
               <Col key={index}>
                 <Link to={`get/${pokemon.name}`} className={styles.LinkCard}>
                   <Card className={`${styles.Card} ${getElementTypeClass(pokemon.elementType)}`}>
-                    <Card.Img variant="top" src={pokemon.imageUrl} />
+                    <Card.Img variant="top" src={pokemon.imageUrl} style={{imageRendering:'pixelated'}}/>
                     <Card.Body>
                       <Card.Title>{pokemon.name}</Card.Title>
                       <Card.Text>

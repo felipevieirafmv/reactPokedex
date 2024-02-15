@@ -95,7 +95,7 @@ export default function PokemonPage() {
     const RenderTypes = () => {
         return pokemon.types?.map((item, index) => {
             return (
-                <img src={require(`../../img/${item.type.name}.png`)} key={index} />
+                <img src={require(`../../img/${item.type.name}.png`)} key={index} style={{imageRendering:'pixelated'}}/>
             )
         })
     }
@@ -128,7 +128,7 @@ export default function PokemonPage() {
         return (
             <>
 
-                <img src={pokemon.sprites?.front_default} className={styles.imgSize} />
+                <img src={pokemon.sprites?.front_default} className={styles.imgSize} style={{imageRendering:'pixelated'}}/>
                 <p>#{pokemon.id} {pokemon.name}</p>
                 <div className={styles.defaultCenter}>
                     <RenderTypes />
