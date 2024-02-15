@@ -47,7 +47,7 @@ export default function PokemonPage() {
     const { handleGet, abilities, handleMoves, handleLocations, pkmSpc, handleStats, pokemon, stats, locations, moves, isLoading, handleEvlChain, evlChain, firstTime } = usePokemon(name);
     const [locationsModal, setLocationsModal] = useState(false);
     const [movesModal, setMovesModal] = useState(false);
-    const radarOptions = {
+    const radarOptionsLight = {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
@@ -61,9 +61,47 @@ export default function PokemonPage() {
                 display: true,
                 position: 'top',
             },
-            backgroundColor: 'white'
         },
     };
+
+    const radarOptionsDark = {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+            r: {
+                suggestedMin: 0,
+                suggestedMax: 200,
+                grid: {
+                    color: 'white'  // Define a cor de fundo da área do gráfico de radar
+                },
+                pointLabels: {
+                    fontColor: 'white'  // Define a cor do texto dentro do gráfico de radar
+                }
+            },
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    fontColor: 'white'  // Define a cor do texto da legenda
+                }
+            },
+        },
+        elements: {
+            line: {
+                borderColor: 'white',  // Define a cor da linha do gráfico de radar
+                borderWidth: 2
+            },
+            point: {
+                backgroundColor: 'white',  // Define a cor dos pontos no gráfico de radar
+                borderColor: 'white',  // Define a cor da borda dos pontos no gráfico de radar
+                borderWidth: 1,
+                radius: 3
+            }
+        }
+    };
+    
 
     const data = {
         labels: ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'],
@@ -152,7 +190,7 @@ export default function PokemonPage() {
         <div style={ containerStyle } className={styles.themes}>
             <Row className={ styles.container }>
                 <Col className={styles.radarContainer} xs={12} sm={8} md={4}>
-                    {pokemon.name ? <Radar data={stats} options={radarOptions} style={{width: "30vw"}}/> : <Radar data={data} options={radarOptions} style={{width: "30vw"}}/>}
+                    {pokemon.name ? <Radar data={stats} options={dark?radarOptionsDark:radarOptionsLight} style={{width: "30vw"}}/> : <Radar data={data} options={dark?radarOptionsDark:radarOptionsLight} style={{width: "30vw"}}/>}
                 </Col>
                 <Col className={ styles.container } xs={12} sm={8} md={4}>
                     <div>
