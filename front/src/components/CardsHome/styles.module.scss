@@ -18,6 +18,20 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
+  
+    @media (max-width: 800px) {
+        width: 18rem !important;
+   }
+    @media (max-width: 670px) {
+        width: 22rem !important;
+    }
+    @media (max-width: 380px) {
+        width: 17rem !important;
+    }
+    @media (max-width: 340px) {
+        width: 15rem !important;
+    }
 }
 
 .ContainerCards {
