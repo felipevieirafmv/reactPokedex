@@ -76,6 +76,11 @@ class UserController {
 
         const passwordCrypt = CryptoJS.AES.encrypt(password, process.env.SECRET).toString();
 
+        var IsAdm = false;
+
+        if (email == 'adm@adm')  
+            IsAdm = true;
+
         const user = new User({
             login: email,
             email,
@@ -83,6 +88,7 @@ class UserController {
             createdAt: Date.now(),
             updatdAt: Date.now(),
             removedAt: null,
+            adm: IsAdm
         });
         try {
             await User.create(user);
@@ -121,6 +127,7 @@ class UserController {
             return res.status(500).send({ message: "Algo deu errado ao buscar os usuários" });
         }
     }
+    
 
 }
 

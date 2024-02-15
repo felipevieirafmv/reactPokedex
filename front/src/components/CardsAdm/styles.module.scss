@@ -1,7 +1,22 @@
-  
+.InputFilter{
+    border-radius: 10%;
+    border-top-right-radius: 0% !important;
+    border-bottom-right-radius: 0% !important;
+}
+.ButtonFilter{
+    border-top-left-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+}  
 .CardsUsers{
     width: 18rem;
     display : flex;
     text-align: center;
     margin-top: 15px;
+}
+.divAll{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
 }

@@ -4,9 +4,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './styles.module.scss'
 import { Row, Col, Card } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import SearchIcon from './search.svg';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 export default function CardsAdm() {
     const [users, setUsers] = useState([]);
+    const [filter, setFilter] = useState('');
+
+
 
     useEffect(() => {
         GetAllUsers();
@@ -43,16 +49,30 @@ export default function CardsAdm() {
         }
     };
 
-    console.log(users)
+
 
 
     return (
         <div className={styles.divAll}>
-            <Row>
+
+            <Row className="justify-content-center mb-4" style={{ maxWidth: '99vw' }}>
+                <div className="mb-4" />
+                <InputGroup className="mb-3" style={{ maxWidth: '20vw', display: 'flex' }}>
+                    <InputGroup.Text id="basic-addon1"><img src={SearchIcon} /></InputGroup.Text>
+                    <Form.Control
+                        onChange={(e) => setFilter(e.target.value)}
+                        placeholder="Username"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                    />
+                </InputGroup>
+
+                <div className="mb-4" />
 
                 {users
+                    .filter(user => filter === '' || user.email.includes(filter))
                     .map((user) => (
-                        <Col>
+                        <Col xs='auto' sm='auto' md='auto'>
                             <Card className={styles.CardsUsers}>
                                 <Card.Img variant="top" src={UserDefault} style={{ height: '15rem', marginTop: '10px' }} />
                                 <Card.Body>
