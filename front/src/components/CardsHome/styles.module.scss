@@ -19,7 +19,6 @@
     background-repeat: no-repeat;
     background-size: cover;
 
-  
     @media (max-width: 800px) {
         width: 18rem !important;
    }
@@ -32,6 +31,7 @@
     @media (max-width: 340px) {
         width: 15rem !important;
     }
+        
 }
 
 .ContainerCards {
@@ -46,6 +46,8 @@
 
 .LinkCard {
     text-decoration: none;
+    display: flex;
+    justify-content: center;
 }
 
 .bug {
